@@ -1,0 +1,26 @@
+{
+  "instagramForm": {
+    "inputs": {
+      "url": {
+        "label": "URL Video",
+        "placeholder": "Tempel URL video Instagram di sini...",
+        "validation": {
+          "required": "URL postingan Instagram wajib diisi",
+          "invalid": "Masukkan URL postingan Instagram yang valid"
+        }
+      }
+    },
+    "serverErrors": {
+      "notFound": "Postingan yang kamu cari tidak ditemukan",
+      "notVideo": "Postingan ini tidak berisi video",
+      "tooManyRequests": "Terlalu banyak permintaan, coba lagi nanti",
+      "serverError": "Server sedang tidak tersedia, silakan coba lagi nanti"
+    },
+    "toasts": {
+      "success": "Unduhan video sedang dimulai...",
+      "error": "Terjadi kesalahan, silakan coba lagi."
+    },
+    "hint": "Mendukung postingan dan Reels Instagram",
+    "submit": "Unduh"
+  }
+}
