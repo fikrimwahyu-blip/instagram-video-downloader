@@ -9,6 +9,7 @@ import { wrapperFetchJsonResponse } from "@/features/api/utils";
 
 export type GetInstagramPostRequest = {
   shortcode: string;
+  url: string;
 };
 
 export type GetInstagramPostResponse = IG_GraphQLResponseDto;
@@ -18,7 +19,8 @@ export function useGetInstagramPost() {
 
   return React.useCallback(
     (data: GetInstagramPostRequest, requestConfig?: RequestConfigType) => {
-      return fetch(`/api/instagram/p/${data.shortcode}`, requestConfig).then(
+      const params = new URLSearchParams({ url: data.url });
+      return fetch(`/api/instagram/p/${data.shortcode}?${params.toString()}`, requestConfig).then(
         wrapperFetchJsonResponse<GetInstagramPostResponse>
       );
     },
