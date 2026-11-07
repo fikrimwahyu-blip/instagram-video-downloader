@@ -17,7 +17,7 @@ type GetInSaverResponse = {
   message?: string;
 };
 
-export async function GET(_: NextRequest, context: RouteContext) {
+export async function GET(request: NextRequest, context: RouteContext) {
   const { shortcode } = await context.params;
 
   if (!shortcode) {
@@ -37,6 +37,34 @@ export async function GET(_: NextRequest, context: RouteContext) {
     );
   }
 
+  const submittedUrl = request.nextUrl.searchParams.get("url");
+  let sourceUrl = `https://www.instagram.com/p/${encodeURIComponent(shortcode)}/`;
+
+  if (submittedUrl) {
+    try {
+      const parsedUrl = new URL(submittedUrl);
+      const allowedHosts = ["www.instagram.com", "instagram.com", "m.instagram.com"];
+      const pathParts = parsedUrl.pathname.split("/").filter(Boolean);
+      const isSupportedPath = ["p", "reel", "tv"].includes(pathParts[0]);
+
+      if (
+        parsedUrl.protocol !== "https:" ||
+        !allowedHosts.includes(parsedUrl.hostname) ||
+        !isSupportedPath ||
+        pathParts[1] !== shortcode
+      ) {
+        throw new Error("Invalid Instagram URL");
+      }
+
+      sourceUrl = `https://www.instagram.com/${pathParts[0]}/${encodeURIComponent(shortcode)}/`;
+    } catch {
+      return NextResponse.json(
+        { error: "noShortcode", message: "invalid Instagram URL" },
+        { status: 400 }
+      );
+    }
+  }
+
   try {
     const response = await fetch("https://developers.getinsaver.com/v1/resolve", {
       method: "POST",
@@ -47,7 +75,7 @@ export async function GET(_: NextRequest, context: RouteContext) {
       },
       body: JSON.stringify({
         service: "instagram",
-        url: `https://www.instagram.com/p/${encodeURIComponent(shortcode)}/`,
+        url: sourceUrl,
         max_results: 1,
       }),
       cache: "no-store",
