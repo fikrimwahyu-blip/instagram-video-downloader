@@ -119,18 +119,18 @@ export function FrequentlyAsked() {
                 </AccordionItem>
                 <AccordionItem value="item-5" className="border-b">
                   <AccordionTrigger className="py-4 text-left font-medium hover:text-violet-600 hover:no-underline">
-                    {t("sections.technical.q3.trigger")}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground pb-4 text-start">
-                    {t("sections.technical.q3.content")}
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-6" className="border-b">
-                  <AccordionTrigger className="py-4 text-left font-medium hover:text-violet-600 hover:no-underline">
                     {t("sections.technical.q2.trigger")}
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground pb-4 text-start">
                     {t("sections.technical.q2.content")}
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-6" className="border-b">
+                  <AccordionTrigger className="py-4 text-left font-medium hover:text-violet-600 hover:no-underline">
+                    {t("sections.technical.q3.trigger")}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground pb-4 text-start">
+                    {t("sections.technical.q3.content")}
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
