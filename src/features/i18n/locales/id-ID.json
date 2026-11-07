@@ -37,7 +37,7 @@
         }
       },
       "footer": {
-        "copyright": "© {year} Aplikasi. Hak cipta dilindungi.",
+        "copyright": "© {year} Instagram Downloader. Hak cipta dilindungi.",
         "links": {
           "terms": "Ketentuan Layanan",
           "privacy": "Kebijakan Privasi",
@@ -47,106 +47,108 @@
     }
   },
   "pages": {
-    "title": "Instagram Downloader",
-    "description": "Cepat, gratis, dan tanpa perlu login. Cukup tempel tautan Instagram lalu unduh.",
-    "hero": {
-      "title": "Download Video Instagram dalam Hitungan Detik",
-      "description": "Cepat, gratis, dan tanpa perlu login. Cukup tempel tautan Instagram lalu unduh video favoritmu.",
-      "form": {
-        "placeholder": "Tempel URL video Instagram di sini...",
-        "button": "Unduh"
+    "home": {
+      "title": "Instagram Downloader",
+      "description": "Unduh video Instagram dengan mudah. Tempel tautan postingan atau Reels, lalu simpan video ke perangkatmu.",
+      "hero": {
+        "title": "Unduh Video Instagram dengan Cepat dan Mudah",
+        "description": "Tempel tautan postingan atau Reels Instagram, lalu unduh video favoritmu dalam beberapa langkah. Gratis dan tanpa perlu login.",
+        "form": {
+          "placeholder": "Tempel tautan Instagram di sini...",
+          "button": "Unduh"
+        },
+        "formHint": "Mendukung postingan dan Reels yang berisi video",
+        "learnMore": "Lihat cara kerjanya"
       },
-      "formHint": "Mendukung postingan, Reels, dan Stories Instagram",
-      "learnMore": "Lihat cara kerjanya"
-    },
-    "features": {
-      "badge": "Mengapa Memilih Kami",
-      "title": "Fitur Unggulan",
-      "description": "Semua yang kamu butuhkan untuk mengunduh video Instagram dengan cepat dan mudah",
-      "cards": {
-        "free": {
-          "title": "100% Gratis",
-          "description": "Tanpa biaya tersembunyi, langganan, atau batasan. Unduh video tanpa perlu membayar."
-        },
-        "noRegistration": {
-          "title": "Tanpa Registrasi",
-          "description": "Tidak perlu membuat akun atau login. Langsung gunakan tanpa memberikan data pribadi."
-        },
-        "fast": {
-          "title": "Super Cepat",
-          "description": "Server kami memproses permintaan dengan optimal sehingga video siap dalam hitungan detik."
-        },
-        "hdQuality": {
-          "title": "Kualitas HD",
-          "description": "Unduh video dengan kualitas terbaik yang tersedia, tetap mempertahankan resolusi dan kejernihan aslinya."
-        }
-      }
-    },
-    "howItWorks": {
-      "badge": "Mudah Digunakan",
-      "title": "Cara Kerja",
-      "description": "Unduh video Instagram hanya dengan tiga langkah sederhana",
-      "steps": {
-        "copy": {
-          "title": "Salin URL",
-          "descriptionDesktop": "Temukan video Instagram yang ingin kamu simpan, lalu salin tautannya dari menu bagikan atau bilah alamat",
-          "descriptionMobile": "Temukan video Instagram yang ingin disimpan, lalu salin tautannya"
-        },
-        "paste": {
-          "title": "Tempel URL",
-          "descriptionDesktop": "Tempel tautan yang sudah disalin ke kolom downloader di bagian atas halaman ini",
-          "descriptionMobile": "Tempel tautan ke kolom downloader"
-        },
-        "download": {
-          "title": "Unduh",
-          "descriptionDesktop": "Klik tombol unduh dan video akan disimpan langsung ke perangkatmu",
-          "descriptionMobile": "Klik unduh dan simpan video ke perangkatmu"
+      "features": {
+        "badge": "Praktis, Cepat, dan Gratis",
+        "title": "Semua yang Kamu Butuhkan",
+        "description": "Cara sederhana untuk menyimpan video Instagram favoritmu.",
+        "cards": {
+          "free": {
+            "title": "100% Gratis",
+            "description": "Gunakan layanan ini secara gratis tanpa biaya tersembunyi."
+          },
+          "noRegistration": {
+            "title": "Tanpa Registrasi",
+            "description": "Tidak perlu membuat akun atau masuk. Cukup tempel tautan dan mulai unduh."
+          },
+          "fast": {
+            "title": "Super Cepat",
+            "description": "Proses unduhan dirancang agar praktis, jadi kamu tidak perlu melalui langkah yang rumit."
+          },
+          "hdQuality": {
+            "title": "Kualitas Terbaik",
+            "description": "Unduh video dengan kualitas terbaik yang tersedia dari Instagram."
+          }
         }
       },
-      "ctaButton": "Coba Sekarang"
-    },
-    "testimonials": {
-      "title": "Dipercaya Banyak Pengguna",
-      "description": "Bergabunglah dengan pengguna yang mengunduh video Instagram setiap hari",
-      "stats": {
-        "downloads": "Unduhan Harian",
-        "users": "Pengguna Puas",
-        "rating": "Penilaian Pengguna"
-      }
-    },
-    "frequentlyAsked": {
-      "badge": "Ada Pertanyaan?",
-      "title": "Pertanyaan yang Sering Diajukan",
-      "description": "Temukan jawaban untuk pertanyaan umum tentang Instagram video downloader kami",
-      "sections": {
-        "general": {
-          "title": "Pertanyaan Umum",
-          "q1": {
-            "trigger": "Apakah layanan ini sepenuhnya gratis?",
-            "content": "Ya, layanan downloader video Instagram kami gratis digunakan tanpa biaya tersembunyi atau biaya berlangganan. Kami tidak meminta informasi pembayaran."
+      "howItWorks": {
+        "badge": "Hanya 3 Langkah",
+        "title": "Cara Mengunduh Video",
+        "description": "Ikuti tiga langkah mudah untuk menyimpan video ke perangkatmu.",
+        "steps": {
+          "copy": {
+            "title": "Salin URL",
+            "descriptionDesktop": "Buka Instagram, pilih video yang ingin disimpan, lalu salin tautannya melalui menu Bagikan.",
+            "descriptionMobile": "Pilih video di Instagram, lalu salin tautannya melalui menu Bagikan."
           },
-          "q2": {
-            "trigger": "Apakah saya perlu membuat akun?",
-            "content": "Tidak, kamu tidak perlu membuat akun atau login. Cukup tempel URL dan unduh tanpa registrasi."
+          "paste": {
+            "title": "Tempel URL",
+            "descriptionDesktop": "Kembali ke halaman ini dan tempel tautan Instagram ke kolom unduhan.",
+            "descriptionMobile": "Tempel tautan Instagram ke kolom unduhan."
           },
-          "q3": {
-            "trigger": "Apakah mengunduh video Instagram legal?",
-            "content": "Layanan ini ditujukan untuk penggunaan pribadi. Hormati hak cipta dan unduh hanya video yang kamu miliki izin untuk digunakan atau yang diperbolehkan oleh hukum."
+          "download": {
+            "title": "Unduh",
+            "descriptionDesktop": "Tekan tombol Unduh dan ikuti proses untuk menyimpan video ke perangkatmu.",
+            "descriptionMobile": "Tekan Unduh untuk menyimpan video ke perangkatmu."
           }
         },
-        "technical": {
-          "title": "Pertanyaan Teknis",
-          "q1": {
-            "trigger": "Konten Instagram apa saja yang bisa diunduh?",
-            "content": "Kamu dapat mengunduh postingan, Reels, dan Stories yang berisi video. Ketersediaan bergantung pada akses dan pengaturan privasi konten Instagram."
+        "ctaButton": "Coba Sekarang"
+      },
+      "testimonials": {
+        "title": "Unduh dengan Lebih Praktis",
+        "description": "Simpan video favoritmu dengan proses yang sederhana dan mudah diikuti.",
+        "stats": {
+          "downloads": "Unduhan Harian",
+          "users": "Pengguna Puas",
+          "rating": "Penilaian Pengguna"
+        }
+      },
+      "frequentlyAsked": {
+        "badge": "Ada Pertanyaan?",
+        "title": "Pertanyaan yang Sering Diajukan",
+        "description": "Jawaban singkat untuk hal-hal yang sering ingin diketahui sebelum mengunduh.",
+        "sections": {
+          "general": {
+            "title": "Pertanyaan Umum",
+            "q1": {
+              "trigger": "Apakah layanan ini sepenuhnya gratis?",
+              "content": "Ya, layanan downloader video Instagram kami gratis digunakan tanpa biaya tersembunyi atau biaya berlangganan. Kami tidak meminta informasi pembayaran."
+            },
+            "q2": {
+              "trigger": "Apakah saya perlu membuat akun?",
+              "content": "Tidak, kamu tidak perlu membuat akun atau login. Cukup tempel URL dan unduh tanpa registrasi."
+            },
+            "q3": {
+              "trigger": "Apakah mengunduh video Instagram legal?",
+              "content": "Gunakan video secara bertanggung jawab. Hormati hak cipta dan unduh hanya konten yang kamu miliki atau yang penggunaannya telah diizinkan oleh pemiliknya."
+            }
           },
-          "q2": {
-            "trigger": "Bagaimana kualitas videonya?",
-            "content": "Kami menyediakan versi dengan kualitas terbaik yang tersedia dari sumber Instagram."
-          },
-          "q3": {
-            "trigger": "Apakah bisa digunakan di HP?",
-            "content": "Ya, downloader dapat digunakan di berbagai perangkat termasuk ponsel dan tablet. Salin URL dari Instagram lalu tempelkan ke alat ini."
+          "technical": {
+            "title": "Pertanyaan Teknis",
+            "q1": {
+              "trigger": "Video Instagram apa saja yang didukung?",
+              "content": "Kamu dapat mencoba tautan postingan dan Reels yang berisi video. Konten harus dapat diakses oleh layanan dan pengaturannya tidak membatasi akses."
+            },
+            "q2": {
+              "trigger": "Bagaimana kualitas videonya?",
+              "content": "Video akan tersedia dalam kualitas terbaik yang disediakan oleh sumber Instagram."
+            },
+            "q3": {
+              "trigger": "Apakah bisa digunakan di HP?",
+              "content": "Bisa. Buka website ini melalui browser di ponsel, tempel tautan Instagram, lalu tekan tombol Unduh."
+            }
           }
         }
       }
