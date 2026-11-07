@@ -13,28 +13,28 @@ export function Hero() {
   return (
     <section
       id={homeSections.hero}
-      className="relative isolate w-full scroll-mt-16 overflow-hidden bg-gradient-to-br from-violet-50 via-white to-fuchsia-50 py-16 md:py-24 lg:py-28 dark:from-gray-950 dark:via-gray-900 dark:to-violet-950/30"
+      className="relative isolate w-full scroll-mt-16 overflow-hidden bg-gradient-to-br from-violet-50 via-white to-fuchsia-50 py-14 sm:py-18 md:py-24 lg:py-28 dark:from-gray-950 dark:via-gray-900 dark:to-violet-950/30"
     >
       <div className="pointer-events-none absolute -left-28 top-8 -z-10 h-72 w-72 rounded-full bg-fuchsia-300/30 blur-3xl dark:bg-fuchsia-500/10" />
       <div className="pointer-events-none absolute -right-24 bottom-0 -z-10 h-80 w-80 rounded-full bg-violet-300/30 blur-3xl dark:bg-violet-500/10" />
 
       <div className="container mx-auto px-4 md:px-6">
         <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-violet-200 bg-white/80 px-4 py-2 text-sm font-semibold text-violet-700 shadow-sm backdrop-blur dark:border-violet-400/20 dark:bg-gray-900/70 dark:text-violet-200">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-violet-200/80 bg-white/90 px-4 py-2 text-xs font-bold tracking-wide text-violet-700 shadow-sm backdrop-blur sm:text-sm dark:border-violet-400/20 dark:bg-gray-900/70 dark:text-violet-200">
             <Sparkles className="h-4 w-4" />
             <span>Instagram Downloader • Gratis & Cepat</span>
           </div>
 
           <div className="max-w-4xl space-y-5 text-balance">
-            <h1 className="text-4xl font-black tracking-tight text-gray-950 sm:text-5xl md:text-6xl lg:text-7xl dark:text-white">
+            <h1 className="max-w-4xl text-4xl leading-[1.12] font-extrabold tracking-tight text-gray-950 sm:text-5xl md:text-6xl lg:text-6xl dark:text-white">
               {t("title")}
             </h1>
-            <p className="mx-auto max-w-2xl text-base leading-8 text-gray-600 sm:text-lg md:text-xl dark:text-gray-300">
+            <p className="mx-auto max-w-2xl text-base leading-7 text-gray-600 sm:text-lg sm:leading-8 dark:text-gray-300">
               {t("description")}
             </p>
           </div>
 
-          <div className="mt-9 w-full max-w-3xl rounded-3xl border border-white/80 bg-white/85 p-3 shadow-[0_24px_80px_-28px_rgba(109,40,217,0.35)] backdrop-blur-xl sm:p-5 dark:border-white/10 dark:bg-gray-900/80">
+          <div className="mt-9 w-full max-w-3xl rounded-[2rem] border border-violet-100 bg-white/95 p-3 shadow-[0_24px_80px_-28px_rgba(109,40,217,0.32)] backdrop-blur-xl sm:p-6 dark:border-white/10 dark:bg-gray-900/80">
             <InstagramForm className="mx-auto max-w-2xl" />
             <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-medium text-gray-500 sm:text-sm dark:text-gray-400">
               <span className="inline-flex items-center gap-1.5">
