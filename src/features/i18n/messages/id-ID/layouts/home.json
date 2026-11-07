@@ -1,0 +1,19 @@
+{
+  "header": {
+    "themeLabel": "Tema",
+    "localeLabel": "Bahasa",
+    "links": {
+      "features": "Fitur",
+      "howItWorks": "Cara Kerja",
+      "frequentlyAsked": "FAQ"
+    }
+  },
+  "footer": {
+    "copyright": "© {year} Aplikasi. Hak cipta dilindungi.",
+    "links": {
+      "terms": "Ketentuan Layanan",
+      "privacy": "Kebijakan Privasi",
+      "contact": "Kontak"
+    }
+  }
+}
