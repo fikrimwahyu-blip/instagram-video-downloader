@@ -39,14 +39,14 @@ export function Header() {
   }, [isMobile, open]);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white backdrop-blur supports-[backdrop-filter]:bg-gray-50/60 dark:bg-gray-900/80">
+    <header className="sticky top-0 z-50 w-full border-b border-violet-100/80 bg-white/90 shadow-sm backdrop-blur-xl supports-[backdrop-filter]:bg-white/75 dark:bg-gray-900/80">
       <div className="container mx-auto flex h-16 items-center px-4">
         <div
           role="button"
           onClick={scrollUp}
           className="flex cursor-pointer items-center gap-2"
         >
-          <LogoImage className="h-6 w-6 text-teal-500" />
+          <LogoImage className="h-6 w-6 text-violet-600" />
           <LogoText />
         </div>
 
@@ -54,19 +54,19 @@ export function Header() {
         <nav className="ml-auto hidden items-center gap-6 md:flex">
           <a
             href={homeLinks.features}
-            className="text-sm font-medium transition-colors hover:text-teal-500"
+            className="text-sm font-medium transition-colors hover:text-violet-600"
           >
             {t("links.features")}
           </a>
           <a
             href={homeLinks.howItWorks}
-            className="text-sm font-medium transition-colors hover:text-teal-500"
+            className="text-sm font-medium transition-colors hover:text-violet-600"
           >
             {t("links.howItWorks")}
           </a>
           <a
             href={homeLinks.frequentlyAsked}
-            className="text-sm font-medium transition-colors hover:text-teal-500"
+            className="text-sm font-medium transition-colors hover:text-violet-600"
           >
             {t("links.frequentlyAsked")}
           </a>
@@ -93,7 +93,7 @@ export function Header() {
               <SheetHeader className="border-b">
                 <SheetTitle>
                   <div className="flex items-center gap-2">
-                    <LogoImage className="h-6 w-6 text-teal-500" />
+                    <LogoImage className="h-6 w-6 text-violet-600" />
                     <LogoText />
                   </div>
                 </SheetTitle>
@@ -102,7 +102,7 @@ export function Header() {
                 <nav className="flex flex-col gap-4 px-4">
                   <a
                     href={homeLinks.features}
-                    className="px-2 py-2 text-lg font-medium transition-colors hover:text-teal-500"
+                    className="px-2 py-2 text-lg font-medium transition-colors hover:text-violet-600"
                     onClick={() => setOpen(false)}
                   >
                     {t("links.features")}
@@ -110,14 +110,14 @@ export function Header() {
 
                   <a
                     href={homeLinks.howItWorks}
-                    className="px-2 py-2 text-lg font-medium transition-colors hover:text-teal-500"
+                    className="px-2 py-2 text-lg font-medium transition-colors hover:text-violet-600"
                     onClick={() => setOpen(false)}
                   >
                     {t("links.howItWorks")}
                   </a>
                   <a
                     href={homeLinks.frequentlyAsked}
-                    className="px-2 py-2 text-lg font-medium transition-colors hover:text-teal-500"
+                    className="px-2 py-2 text-lg font-medium transition-colors hover:text-violet-600"
                     onClick={() => setOpen(false)}
                   >
                     {t("links.frequentlyAsked")}
