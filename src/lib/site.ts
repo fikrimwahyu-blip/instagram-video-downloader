@@ -1,14 +1,14 @@
 import { Metadata } from "next";
 
 export const siteConfig = {
-  name: "GramGrabberz",
+  name: "Instagram Downloader",
   domain: "gram-grabberz.vercel.com",
-  shortName: "GramGrabberz",
+  shortName: "Instagram Downloader",
   creator: "riad-azz",
   description:
-    "Fast, free, and no login required. Just paste the URL and download.",
+    "Download video Instagram dengan cepat, gratis, dan tanpa perlu login.",
   ogDescription:
-    "Fast, free, and no login required. Just paste the URL and download.",
+    "Download video Instagram dengan cepat, gratis, dan tanpa perlu login.",
   url: "https://gram-grabberz.vercel.com",
 };
 
