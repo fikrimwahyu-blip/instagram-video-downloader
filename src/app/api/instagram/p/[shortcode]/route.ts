@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
+export const maxDuration = 120;
+
 interface RouteContext {
   params: Promise<{ shortcode: string }>;
 }
@@ -77,7 +79,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
       },
       body: JSON.stringify({ url: sourceUrl }),
       cache: "no-store",
-      signal: AbortSignal.timeout(55_000),
+      signal: AbortSignal.timeout(110_000),
     });
 
     const result = (await response.json().catch(() => null)) as
