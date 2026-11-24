@@ -19,7 +19,7 @@ type ProviderResponse = {
 };
 
 const PROVIDER_URL = "https://developers.getinsaver.com/v1/resolve";
-const REQUEST_TIMEOUT_MS = 55_000;
+const REQUEST_TIMEOUT_MS = 130_000;
 
 function jsonError(
   error: string,
