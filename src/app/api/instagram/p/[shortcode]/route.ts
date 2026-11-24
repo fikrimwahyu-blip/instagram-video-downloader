@@ -4,33 +4,16 @@ interface RouteContext {
   params: Promise<{ shortcode: string }>;
 }
 
-type ProviderItem = {
-  type?: string;
-  url?: string;
-};
-
-type ProviderResponse = {
+type ExtractResponse = {
   ok?: boolean;
-  items?: ProviderItem[];
-  error?: boolean;
-  code?: string;
-  message?: string;
-  request_id?: string;
+  title?: string;
+  ext?: string;
+  url?: string;
+  detail?: string;
 };
 
-const PROVIDER_URL = "https://developers.getinsaver.com/v1/resolve";
-const REQUEST_TIMEOUT_MS = 130_000;
-
-function jsonError(
-  error: string,
-  message: string,
-  status: number,
-  extraHeaders?: HeadersInit
-) {
-  return NextResponse.json(
-    { error, message },
-    { status, headers: extraHeaders }
-  );
+function jsonError(error: string, message: string, status: number) {
+  return NextResponse.json({ error, message }, { status });
 }
 
 export async function GET(request: NextRequest, context: RouteContext) {
@@ -40,158 +23,98 @@ export async function GET(request: NextRequest, context: RouteContext) {
     return jsonError("noShortcode", "Tautan Instagram tidak valid.", 400);
   }
 
-  // Accept both names: the existing deployment variable and the name used
-  // in the provider's official integration examples.
-  const apiKey =
-    process.env.GETINSAVER_API_KEY || process.env.GIS_KEY;
+  const submittedUrl = request.nextUrl.searchParams.get("url");
+  if (!submittedUrl) {
+    return jsonError("noShortcode", "Tautan Instagram wajib diisi.", 400);
+  }
 
-  if (!apiKey) {
+  let sourceUrl: string;
+  try {
+    const parsedUrl = new URL(submittedUrl);
+    const allowedHosts = [
+      "www.instagram.com",
+      "instagram.com",
+      "m.instagram.com",
+    ];
+    const pathParts = parsedUrl.pathname.split("/").filter(Boolean);
+    const isSupportedPath = ["p", "reel", "tv"].includes(pathParts[0]);
+
+    if (
+      parsedUrl.protocol !== "https:" ||
+      !allowedHosts.includes(parsedUrl.hostname) ||
+      !isSupportedPath ||
+      pathParts[1] !== shortcode
+    ) {
+      throw new Error("Invalid Instagram URL");
+    }
+
+    sourceUrl = `https://www.instagram.com/${pathParts[0]}/${encodeURIComponent(shortcode)}/`;
+  } catch {
+    return jsonError("noShortcode", "Tautan Instagram tidak valid.", 400);
+  }
+
+  const serviceUrl = process.env.DOWNLOADER_API_URL?.replace(/\/+$/, "");
+  const serviceKey = process.env.DOWNLOADER_API_KEY;
+
+  if (!serviceUrl || !serviceKey) {
     console.error(
-      "Instagram downloader is not configured: set GETINSAVER_API_KEY or GIS_KEY"
+      "Downloader service is not configured. Set DOWNLOADER_API_URL and DOWNLOADER_API_KEY."
     );
     return jsonError(
       "serverError",
-      "Layanan unduhan belum dikonfigurasi. Admin perlu mengatur API key.",
+      "Layanan downloader belum dikonfigurasi oleh admin.",
       500
     );
   }
 
-  const submittedUrl = request.nextUrl.searchParams.get("url");
-  let sourceUrl = `https://www.instagram.com/p/${encodeURIComponent(shortcode)}/`;
-
-  if (submittedUrl) {
-    try {
-      const parsedUrl = new URL(submittedUrl);
-      const allowedHosts = [
-        "www.instagram.com",
-        "instagram.com",
-        "m.instagram.com",
-      ];
-      const pathParts = parsedUrl.pathname.split("/").filter(Boolean);
-      const isSupportedPath = ["p", "reel", "tv"].includes(pathParts[0]);
-
-      if (
-        parsedUrl.protocol !== "https:" ||
-        !allowedHosts.includes(parsedUrl.hostname) ||
-        !isSupportedPath ||
-        pathParts[1] !== shortcode
-      ) {
-        throw new Error("Invalid Instagram URL");
-      }
-
-      sourceUrl = `https://www.instagram.com/${pathParts[0]}/${encodeURIComponent(shortcode)}/`;
-    } catch {
-      return jsonError("noShortcode", "Tautan Instagram tidak valid.", 400);
-    }
-  }
-
   try {
-    const response = await fetch(PROVIDER_URL, {
+    const response = await fetch(`${serviceUrl}/extract`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
+        "X-API-Key": serviceKey,
         Accept: "application/json",
       },
-      body: JSON.stringify({
-        service: "instagram",
-        url: sourceUrl,
-        max_results: 1,
-      }),
+      body: JSON.stringify({ url: sourceUrl }),
       cache: "no-store",
-      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+      signal: AbortSignal.timeout(55_000),
     });
 
     const result = (await response.json().catch(() => null)) as
-      | ProviderResponse
+      | ExtractResponse
       | null;
 
-    if (!response.ok || !result?.ok) {
-      const providerCode = result?.code || "UNKNOWN";
-      const providerMessage = result?.message || "No details returned";
-      console.error("GetInSaver request failed:", {
+    if (!response.ok || !result?.url) {
+      const message = result?.detail || "Gagal mengambil video Instagram.";
+      console.error("yt-dlp service error:", {
         status: response.status,
-        code: providerCode,
-        message: providerMessage,
-        requestId: result?.request_id,
+        message,
       });
 
-      if (
-        response.status === 401 ||
-        providerCode === "API_KEY_INVALID"
-      ) {
+      if (response.status === 401) {
         return jsonError(
           "serverError",
-          "API key downloader tidak valid atau belum diverifikasi. Periksa pengaturan server.",
+          "Kunci penghubung antara Vercel dan downloader tidak cocok.",
           500
         );
       }
-
-      if (
-        response.status === 402 ||
-        providerCode === "INSUFFICIENT_CREDITS"
-      ) {
-        return jsonError(
-          "serverError",
-          "Kuota layanan downloader habis. Silakan hubungi admin.",
-          503
-        );
+      if (response.status === 403) {
+        return jsonError("notFound", message, 404);
       }
-
-      if (
-        response.status === 422 ||
-        providerCode === "MEDIA_NOT_FOUND" ||
-        providerCode === "UPSTREAM_REJECTED"
-      ) {
-        return jsonError(
-          "notFound",
-          "Video tidak ditemukan. Pastikan postingan bersifat publik dan masih tersedia.",
-          404
-        );
+      if (response.status === 404) {
+        return jsonError("notFound", message, 404);
       }
-
-      if (
-        response.status === 429 ||
-        providerCode === "RATE_LIMITED" ||
-        providerCode === "CONCURRENCY_LIMIT"
-      ) {
-        const retryAfter = response.headers.get("Retry-After");
-        return jsonError(
-          "tooManyRequests",
-          "Server sedang sibuk. Tunggu sebentar lalu coba lagi.",
-          429,
-          retryAfter ? { "Retry-After": retryAfter } : undefined
-        );
+      if (response.status === 429) {
+        return jsonError("tooManyRequests", message, 429);
       }
-
-      if (response.status === 504 || providerCode === "UPSTREAM_TIMEOUT") {
-        return jsonError(
-          "serverError",
-          "Instagram membutuhkan waktu terlalu lama untuk merespons. Coba lagi beberapa saat.",
-          500
-        );
+      if (response.status === 400) {
+        return jsonError("noShortcode", message, 400);
       }
-
-      return jsonError(
-        "serverError",
-        "Layanan Instagram sedang bermasalah. Silakan coba lagi nanti.",
-        502
-      );
+      return jsonError("serverError", message, 502);
     }
 
-    const video = result.items?.find(
-      (item) =>
-        item.type?.toLowerCase() === "video" &&
-        typeof item.url === "string" &&
-        item.url.startsWith("https://")
-    );
-
-    if (!video?.url) {
-      return jsonError(
-        "notVideo",
-        "Postingan ini tidak berisi video yang bisa diunduh.",
-        400
-      );
+    if (!result.url.startsWith("https://")) {
+      return jsonError("serverError", "URL video dari server tidak valid.", 502);
     }
 
     return NextResponse.json(
@@ -199,7 +122,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
         data: {
           xdt_shortcode_media: {
             is_video: true,
-            video_url: video.url,
+            video_url: result.url,
           },
         },
       },
@@ -209,11 +132,11 @@ export async function GET(request: NextRequest, context: RouteContext) {
       }
     );
   } catch (error) {
-    console.error("Instagram downloader provider error:", error);
+    console.error("yt-dlp service request failed:", error);
     return jsonError(
       "serverError",
-      "Gagal menghubungi layanan downloader. Silakan coba lagi nanti.",
-      500
+      "Server downloader belum merespons. Jika baru aktif, buka alamat health service terlebih dahulu lalu coba lagi.",
+      502
     );
   }
 }
