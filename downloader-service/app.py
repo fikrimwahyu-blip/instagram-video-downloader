@@ -74,7 +74,7 @@ def extract_video(
         "no_warnings": True,
         "noplaylist": True,
         "skip_download": True,
-        "format": "best[ext=mp4]/best",
+        "format": "best[ext=mp4][vcodec!=none][acodec!=none]/best[vcodec!=none][acodec!=none]/best",
         "socket_timeout": 25,
         "retries": 1,
         "extractor_retries": 1,
