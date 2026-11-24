@@ -52,7 +52,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
     return jsonError(
       "serverError",
       "Layanan unduhan belum dikonfigurasi. Admin perlu mengatur API key.",
-      503
+      500
     );
   }
 
@@ -123,7 +123,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
         return jsonError(
           "serverError",
           "API key downloader tidak valid atau belum diverifikasi. Periksa pengaturan server.",
-          503
+          500
         );
       }
 
@@ -168,7 +168,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
         return jsonError(
           "serverError",
           "Instagram membutuhkan waktu terlalu lama untuk merespons. Coba lagi beberapa saat.",
-          504
+          500
         );
       }
 
@@ -213,7 +213,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
     return jsonError(
       "serverError",
       "Gagal menghubungi layanan downloader. Silakan coba lagi nanti.",
-      502
+      500
     );
   }
 }
