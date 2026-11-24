@@ -1,67 +1,100 @@
-// app/api/download-proxy/route.ts
 import { NextRequest, NextResponse } from "next/server";
+
+const ALLOWED_VIDEO_HOSTS = [
+  "cdninstagram.com",
+  "fbcdn.net",
+  "instagram.com",
+];
+
+function isAllowedVideoHost(hostname: string) {
+  return ALLOWED_VIDEO_HOSTS.some(
+    (domain) => hostname === domain || hostname.endsWith(`.${domain}`)
+  );
+}
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const fileUrl = searchParams.get("url");
-  const filename = searchParams.get("filename") || "gram-grabberz-video.mp4"; // Default filename
+  const requestedFilename =
+    searchParams.get("filename") || "instagram-video.mp4";
+  const filename = requestedFilename
+    .replace(/[^a-zA-Z0-9._-]/g, "_")
+    .slice(0, 100);
 
   if (!fileUrl) {
     return NextResponse.json(
-      { error: "missingUrl", message: "url is required" },
+      { error: "missingUrl", message: "URL video wajib diisi." },
+      { status: 400 }
+    );
+  }
+
+  let parsedUrl: URL;
+  try {
+    parsedUrl = new URL(fileUrl);
+  } catch {
+    return NextResponse.json(
+      { error: "invalidUrl", message: "URL video tidak valid." },
+      { status: 400 }
+    );
+  }
+
+  if (
+    parsedUrl.protocol !== "https:" ||
+    !parsedUrl.hostname ||
+    !isAllowedVideoHost(parsedUrl.hostname)
+  ) {
+    return NextResponse.json(
+      { error: "invalidUrl", message: "Host video tidak diizinkan." },
       { status: 400 }
     );
   }
 
   try {
-    // Validate the URL slightly (optional but recommended)
-    if (!fileUrl.startsWith("https://")) {
+    const videoResponse = await fetch(parsedUrl, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(55_000),
+    });
+
+    if (!videoResponse.ok) {
       return NextResponse.json(
-        { error: "Invalid URL format" },
-        { status: 400 }
+        {
+          error: "downloadFailed",
+          message: "Gagal mengambil file video dari Instagram.",
+        },
+        { status: 502 }
       );
     }
 
-    // Fetch the video from the external URL
-    const videoResponse = await fetch(fileUrl);
-
-    if (!videoResponse.ok) {
-      throw new Error(`Failed to fetch video: ${videoResponse.statusText}`);
+    if (!videoResponse.body) {
+      return NextResponse.json(
+        { error: "emptyResponse", message: "File video kosong." },
+        { status: 502 }
+      );
     }
 
-    // Get the video data as a ReadableStream
-    const videoStream = videoResponse.body;
-
-    if (!videoStream) {
-      throw new Error("Video stream is not available");
-    }
-
-    // Set headers to force download
     const headers = new Headers();
     headers.set("Content-Disposition", `attachment; filename="${filename}"`);
-    // Try to get Content-Type from original response, fallback to generic video type
     headers.set(
       "Content-Type",
       videoResponse.headers.get("Content-Type") || "video/mp4"
     );
-    // Optionally set Content-Length if available
-    if (videoResponse.headers.get("Content-Length")) {
-      headers.set(
-        "Content-Length",
-        videoResponse.headers.get("Content-Length")!
-      );
-    }
+    headers.set("Cache-Control", "no-store");
 
-    // Return the stream response
-    return new NextResponse(videoStream, {
+    const contentLength = videoResponse.headers.get("Content-Length");
+    if (contentLength) headers.set("Content-Length", contentLength);
+
+    return new NextResponse(videoResponse.body, {
       status: 200,
-      headers: headers,
+      headers,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Download proxy error:", error);
     return NextResponse.json(
-      { error: "serverError", message: error.message },
-      { status: 500 }
+      {
+        error: "serverError",
+        message: "Gagal mengunduh video. Silakan coba lagi.",
+      },
+      { status: 502 }
     );
   }
 }
